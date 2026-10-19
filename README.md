@@ -1,6 +1,6 @@
 # SAT Start
 
-**[Открыть приложение / Open the app](https://sat-start-math-2026.arcane-field-4854.chatgpt.site/)** · [GitHub Pages mirror](https://danilship26-bit.github.io/sat-start-math/)
+**[Открыть приложение / Open the app](https://sat-start-math-2026.arcane-field-4854.chatgpt.site/)** · [GitHub Pages mirror](https://danilship26-bit.github.io/sat-start/)
 
 Independent, multilingual preparation for the digital SAT. Math and Reading & Writing are separate courses on the same site. Questions are in English; the interface and learning strategies are available in Russian, English, Spanish, and Arabic. Progress stays in the browser.
 
@@ -12,6 +12,7 @@ Independent, multilingual preparation for the digital SAT. Math and Reading & Wr
 - Fresh 22-question modules and four 44-question, 70-minute practice forms: mixed, numeric-focused, wording-focused, and weak-topic review.
 - Separate Math and Reading & Writing progress, answer review, and weak-skill suggestions.
 - Optional entry of **official Bluebook** Math and Reading and Writing scores. The app compares the combined official practice score with published score ranges for 21 university/campus rows, each linked to its source. It does not calculate an official SAT score or an admission probability.
+- One shared interface for both courses, with a course switcher and responsive navigation. University comparisons can be filtered by study area and searched by name; these broad areas are browsing aids, not program-specific admissions predictions.
 - Optional synthesized interface sounds with a mute button.
 
 ## Run locally
