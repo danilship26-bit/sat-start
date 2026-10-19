@@ -1,5 +1,7 @@
 # SAT Start Math
 
+**[Открыть приложение / Open the app](https://sat-start-math-2026.arcane-field-4854.chatgpt.site/)** · [GitHub Pages mirror](https://danilship26-bit.github.io/sat-start-math/)
+
 An independent, multilingual SAT Math learning app. It starts with arithmetic foundations, then covers Algebra, Advanced Math, Problem-Solving and Data Analysis, and Geometry and Trigonometry. Exam-style questions stay in English; explanations and interface text are available in Russian, English, Spanish, and Arabic.
 
 ## What is included
