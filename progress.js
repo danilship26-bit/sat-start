@@ -56,6 +56,30 @@
     {name:'Massachusetts Institute of Technology',lo:1520,hi:1570,year:'Fall 2025 enrolled · CDS',url:'https://ir.mit.edu/projects/2025-26-common-data-set/'}
   ];
   universities.sort((a,b)=>a.lo-b.lo);
+  // Categories are broad study interests, not a claim that a score range applies to a major.
+  const universityFields={
+    'Purdue · Liberal Arts':['humanities','social'],
+    'University of Georgia':['engineering','business','health','humanities','social','education'],
+    'University of Florida':['engineering','business','health','humanities','social','education'],
+    'Illinois Urbana-Champaign':['engineering','business','health','humanities','social','education'],
+    'Northeastern University':['engineering','business','health','humanities','social','education'],
+    'Stephen F. Austin State University':['engineering','business','health','humanities','social','education'],
+    'Commonwealth University of Pennsylvania':['business','health','humanities','social','education'],
+    'Kennesaw State University':['engineering','business','health','humanities','social','education'],
+    'University of Nevada, Reno':['engineering','business','health','humanities','social','education'],
+    'Michigan State University':['engineering','business','health','humanities','social','education'],
+    'Butler University':['business','health','humanities','social','education'],
+    'Texas A&M University':['engineering','business','health','humanities','social','education'],
+    'Auburn University':['engineering','business','health','humanities','social','education'],
+    'Rutgers–Camden · Arts and Sciences':['health','humanities','social'],
+    'Rutgers–Newark · Arts and Sciences':['health','humanities','social'],
+    'Rutgers–New Brunswick · Arts and Sciences':['engineering','health','humanities','social'],
+    'Georgia Institute of Technology':['engineering','business','health','humanities','social'],
+    'Villanova University':['engineering','business','health','humanities','social','education'],
+    'Emory University':['business','health','humanities','social'],
+    'Princeton University':['engineering','health','humanities','social'],
+    'Massachusetts Institute of Technology':['engineering','business','health','humanities','social']
+  };
   UI.ru.universityNote='Для ориентира использованы опубликованные данные приёма 2025–2026 годов. Указан год каждой статистики. Баллы, правила и сроки 2027 года проверяй на сайте вуза. Диапазон SAT не означает шанс поступления.';
   UI.en.universityNote='Published 2025–2026 admissions data are shown, with the year for each source. Check 2027 scores, rules and deadlines with each university. SAT ranges are not admission chances.';
   UI.es.universityNote='Se muestran datos publicados de 2025–2026 con el año de cada fuente. Consulta las reglas y fechas de 2027 en cada universidad. Un rango SAT no predice la admisión.';
@@ -87,7 +111,7 @@
   settings=function(){
     const done=LESSONS.filter(l=>state.done[l.id]).length,full=(state.checkpoints||[]).filter(x=>x.total===44),recent=full.slice(0,3),mathAvg=recent.length?Math.round(recent.reduce((s,x)=>s+x.correct/x.total,0)/recent.length*100):null,wording=(state.wordingHistory||[]).slice(0,3),wordAvg=wording.length?Math.round(wording.reduce((s,x)=>s+x.correct/x.total,0)/wording.length*100):null,readiness=full.length>=2?Math.round(.7*(mathAvg||0)+.3*(done/LESSONS.length*100)):null;
     const bm=scoreValue(state.bluebookMath),br=scoreValue(state.bluebookRW),total=bm!==null&&br!==null?bm+br:null,goal=Number(state.targetTotal)||1400;
-    const rows=universities.map(u=>`<tr><td><a href="${u.url}" target="_blank" rel="noopener noreferrer">${u.name} ↗</a><small>${u.year}</small></td><td>${u.lo}–${u.hi}</td><td>${total===null?'—':total<u.lo?t('belowRange'):total>u.hi?t('aboveRange'):t('withinRange')}</td></tr>`).join('');
+    const rows=universities.map(u=>`<tr data-fields="${(universityFields[u.name]||[]).join(' ')}"><td><a href="${u.url}" target="_blank" rel="noopener noreferrer">${u.name} ↗</a><small>${u.year}</small></td><td>${u.lo}–${u.hi}</td><td>${total===null?'—':total<u.lo?t('belowRange'):total>u.hi?t('aboveRange'):t('withinRange')}</td></tr>`).join('');
     const history=full.slice(0,5).map(x=>`<div class="history-item"><span>${new Date(x.date).toLocaleDateString(state.lang)}</span><b>${x.correct}/${x.total}</b><span>${t(x.mode||'balanced')}</span></div>`).join('');
     shell(`<div class="section-head" style="margin-top:0"><div><span class="tag">SAT START · 2027</span><h1 class="page-title">${t('settingsProgress')}</h1><p class="lead">${t('notOfficial')}</p></div></div><div class="stats"><div class="stat"><span class="stat-icon">◈</span><div><small>${t('mathReadiness')}</small><strong>${readiness===null?'—':readiness+'%'}</strong></div></div><div class="stat"><span class="stat-icon peach">✓</span><div><small>${t('mastery')}</small><strong>${done}/${LESSONS.length}</strong></div></div><div class="stat"><span class="stat-icon mint">Aa</span><div><small>${t('wordingAccuracy')}</small><strong>${wordAvg===null?'—':wordAvg+'%'}</strong></div></div></div><p class="notice">${readiness===null?t('insufficient'):t('notOfficial')} ${t('practiceNote')}</p><div class="dashboard-grid"><section class="info-card"><h3>${t('fullTests')} · ${full.length}</h3><div class="history-list">${history||'—'}</div><p class="lead">${t('accuracy')}: ${mathAvg===null?'—':mathAvg+'%'}</p></section><section class="info-card"><h3>${t('bluebook')}</h3><p>${t('bluebookIntro')}</p><div class="score-fields"><label>${t('mathScore')}<input id="bluebookMath" type="number" min="200" max="800" step="10" value="${bm??''}"></label><label>${t('rwScore')}<input id="bluebookRW" type="number" min="200" max="800" step="10" value="${br??''}"></label><label>${t('targetScore')}<input id="targetTotal" type="number" min="400" max="1600" step="10" value="${goal}"></label></div><p><b>${total===null?t('needOfficial'):`${total}/1600 · ${t('scoreGoal')}: ${Math.max(0,goal-total)}`}</b></p><a class="official-link" href="https://satsuite.collegeboard.org/practice/practice-tests/bluebook" target="_blank" rel="noopener noreferrer">Bluebook ↗</a></section></div><div class="section-head"><div><h2>${t('universityExamples')}</h2><p>${t('universityNote')}</p></div></div><div class="university-wrap"><table class="university-table"><thead><tr><th>University</th><th>SAT middle 50%</th><th>${total===null?'—':total+'/1600'}</th></tr></thead><tbody>${rows}</tbody></table></div><section class="settings-panel"><div class="field"><label for="language">${t('nativeLanguage')}</label><select id="language"><option value="ru">Русский</option><option value="en">English</option><option value="es">Español</option><option value="ar">العربية</option></select></div><p class="lead">${t('saved')}</p><button class="secondary" id="reset">${t('reset')}</button></section>`);
     $('#language').value=state.lang;$('#language').onchange=e=>{state.lang=e.target.value;save();render()};
@@ -99,9 +123,12 @@
     baseSettings();
     const wrap=document.querySelector('.university-wrap');
     if(!wrap)return;
-    const label={ru:'Поиск по вузам',en:'Search universities',es:'Buscar universidades',ar:'ابحث عن الجامعات'}[state.lang];
-    wrap.insertAdjacentHTML('beforebegin',`<div class="university-search"><label for="uniSearch">${label} · ${universities.length}</label><input id="uniSearch" type="search" placeholder="${label}"></div>`);
-    document.querySelector('#uniSearch').oninput=e=>{const needle=e.target.value.toLocaleLowerCase();wrap.querySelectorAll('tbody tr').forEach(tr=>{tr.hidden=!tr.textContent.toLocaleLowerCase().includes(needle)})};
+    const copy={ru:{search:'Поиск вуза',field:'Направление',all:'Все направления',engineering:'Инженерия и IT',business:'Бизнес и экономика',health:'Медицина и науки о жизни',humanities:'Искусство и гуманитарные науки',social:'Общественные науки',education:'Образование',shown:'Показано',empty:'Нет вузов по этим фильтрам'},en:{search:'Search universities',field:'Study area',all:'All study areas',engineering:'Engineering & tech',business:'Business & economics',health:'Health & life sciences',humanities:'Arts & humanities',social:'Social sciences',education:'Education',shown:'Showing',empty:'No universities match'},es:{search:'Buscar universidades',field:'Área de estudio',all:'Todas las áreas',engineering:'Ingeniería y tecnología',business:'Empresa y economía',health:'Salud y ciencias de la vida',humanities:'Arte y humanidades',social:'Ciencias sociales',education:'Educación',shown:'Mostrando',empty:'Ninguna universidad coincide'},ar:{search:'ابحث عن الجامعات',field:'مجال الدراسة',all:'جميع المجالات',engineering:'الهندسة والتقنية',business:'الأعمال والاقتصاد',health:'الصحة وعلوم الحياة',humanities:'الفنون والإنسانيات',social:'العلوم الاجتماعية',education:'التعليم',shown:'المعروض',empty:'لا توجد جامعات مطابقة'}}[state.lang]||{};
+    const options=['engineering','business','health','humanities','social','education'];
+    wrap.insertAdjacentHTML('beforebegin',`<div class="university-search"><label>${copy.search}<input id="uniSearch" type="search" placeholder="${copy.search}" autocomplete="off"></label><label>${copy.field}<select id="uniField"><option value="">${copy.all}</option>${options.map(f=>`<option value="${f}">${copy[f]}</option>`).join('')}</select></label><output id="uniCount" aria-live="polite"></output></div>`);
+    wrap.insertAdjacentHTML('afterend',`<p class="uni-empty" id="uniEmpty" hidden>${copy.empty}</p>`);
+    const apply=()=>{const needle=document.querySelector('#uniSearch').value.trim().toLocaleLowerCase(),field=document.querySelector('#uniField').value;let shown=0;wrap.querySelectorAll('tbody tr').forEach(tr=>{tr.hidden=!(tr.textContent.toLocaleLowerCase().includes(needle)&&(!field||tr.dataset.fields.split(' ').includes(field)));if(!tr.hidden)shown++});document.querySelector('#uniCount').textContent=`${copy.shown}: ${shown}/${universities.length}`;document.querySelector('#uniEmpty').hidden=shown!==0};
+    document.querySelector('#uniSearch').oninput=apply;document.querySelector('#uniField').onchange=apply;apply();
   };
   render();
 })();
