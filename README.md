@@ -1,29 +1,30 @@
-# SAT Start
+# SAT Start — digital SAT prep from zero
 
-**[Открыть приложение / Open the app](https://sat-start-math-2026.arcane-field-4854.chatgpt.site/)** · [GitHub Pages mirror](https://danilship26-bit.github.io/sat-start/)
+**[Start learning](https://sat-start-math-2026.arcane-field-4854.chatgpt.site/)** · **[Diagnostic and full practice test](https://sat-start-math-2026.arcane-field-4854.chatgpt.site/hub.html)** · [GitHub Pages mirror](https://danilship26-bit.github.io/sat-start/)
 
-Independent, multilingual preparation for the digital SAT. Math and Reading & Writing are separate courses on the same site. Questions are in English; the interface and learning strategies are available in Russian, English, Spanish, and Arabic. Progress stays in the browser.
+SAT Start is a free, independent web app for students learning **digital SAT Math and Reading & Writing**. Exam-style questions are in English. The interface and learning strategies are available in Russian, English, Spanish, and Arabic, so a learner can build both the subject knowledge and the English needed to understand the test. No account or installation is required.
 
-## What is included
+## Learn, practice, review
 
-- 29 lessons and 138 original Math questions, including 46 numeric or fraction responses.
-- 30 short checks of English wording used in Math questions.
-- Reading & Writing: 12 skill lessons across all four College Board domains, 55 original questions, and a 54-question practice form with two separately timed 27-question modules. Answer order is shuffled. Russian learners get question-specific explanations; all four interface languages have skill strategies.
-- Fresh 22-question modules and four 44-question, 70-minute practice forms: mixed, numeric-focused, wording-focused, and weak-topic review.
-- Separate Math and Reading & Writing progress, answer review, and weak-skill suggestions.
-- Optional entry of **official Bluebook** Math and Reading and Writing scores. The app compares the combined official practice score with published score ranges for 21 university/campus rows, each linked to its source. It does not calculate an official SAT score or an admission probability.
-- One shared interface for both courses, with a course switcher and responsive navigation. University comparisons can be filtered by study area and searched by name; these broad areas are browsing aids, not program-specific admissions predictions.
-- Optional synthesized interface sounds with a mute button.
+- **Start with a diagnostic:** 24 untimed questions across Math and Reading & Writing. A personal plan points to lessons for the weakest areas.
+- **Learn Math from the foundations:** 29 lessons, 138 original questions, 30 checks of tricky English wording, numeric response practice, and focused practice variants.
+- **Build Reading & Writing skills:** 12 lessons across all four tested domains and **103 original questions**, with answer explanations and varied answer positions.
+- **Take a combined practice test:** 54 Reading & Writing questions and 44 Math questions in four timed modules, with a ten-minute break. The second module in each section uses an **approximate educational difficulty adjustment** based on the first. Save and resume in the same browser.
+- **Review mistakes and progress:** inspect every missed answer, continue a recommended lesson, and track course completion and raw practice results.
+- **Explore universities:** search and filter 21 real university/campus comparisons by broad study area. Each row links to its published score source. You can enter official Bluebook scores for a score-range comparison.
+- **Use it comfortably:** one visual system across both courses, responsive layout, optional interface sounds, and a mute control.
+
+## What the results mean
+
+This app's questions and tests are **original, unofficial practice**. A raw result such as `72/98` is not an SAT scaled score, admission probability, or a guarantee of future performance. The combined test approximates module difficulty but does not reproduce College Board's adaptive scoring. For an official practice score, use [Bluebook](https://satsuite.collegeboard.org/practice/practice-tests/bluebook). University score ranges describe past applicants or enrolled students and do not determine admission.
 
 ## Run locally
 
-Serve `dist/` with a static HTTP server. Open `index.html` for Math and `rw.html` for Reading & Writing. No build step or account is required. Progress is stored only in the browser's local storage.
+Serve `dist/` with any static HTTP server and open `index.html` (Math), `rw.html` (Reading & Writing), or `hub.html` (diagnostic and combined test). There is no build step. Progress is stored in browser local storage, so clearing browser data removes it.
 
-## Sources and limits
+## Sources
 
-The curriculum follows the [College Board Math overview](https://satsuite.collegeboard.org/sat/whats-on-the-test/math/overview), [Reading and Writing overview](https://satsuite.collegeboard.org/sat/whats-on-the-test/reading-writing), and [Reading and Writing specifications](https://satsuite.collegeboard.org/k12-educators/about/alignment/reading). All practice questions in this repository are original. Some early Reading & Writing passages are shorter than real exam passages. The practice forms do not reproduce the adaptive second module or calculate an official SAT score. For an official practice score, use [Bluebook](https://satsuite.collegeboard.org/practice/practice-tests/bluebook).
+The curriculum and test structure were checked against College Board's [Math overview](https://satsuite.collegeboard.org/sat/whats-on-the-test/math/overview), [Reading & Writing overview](https://satsuite.collegeboard.org/sat/whats-on-the-test/reading-writing), [test structure](https://satsuite.collegeboard.org/sat-school-day/taking-the-test/structure), and [adaptive scoring explanation](https://satsuite.collegeboard.org/scores/what-scores-mean/how-scores-calculated). The [Student Question Bank](https://satsuite.collegeboard.org/practice/student-question-bank) and [Bluebook](https://satsuite.collegeboard.org/practice/practice-tests/bluebook) offer official practice. All questions in this repository are original, and some passages are shorter than those on the real exam.
 
-University comparisons use each linked institution's published 2025–2026 admission profile or Common Data Set. The year and direct source appear in each row. These describe historical admitted or enrolled student scores, not 2027 admission decisions. Applicants must check current rules, English proficiency requirements, grades, financial aid, and deadlines directly with each university.
-
-SAT is a trademark of College Board. This project is not affiliated with College Board or the universities listed.
+SAT is a trademark of College Board. SAT Start is not affiliated with College Board or the universities shown in the app.
 
