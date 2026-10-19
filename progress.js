@@ -37,8 +37,29 @@
     {name:'University of Georgia',lo:1360,hi:1500,year:'Class of 2030',url:'https://admissions.uga.edu/apply/first-year-applicants/admissions-stats/'},
     {name:'University of Florida',lo:1420,hi:1520,year:'Class of 2030',url:'https://admissions.ufl.edu/freshman-student-profile'},
     {name:'Illinois Urbana-Champaign',lo:1440,hi:1540,year:'current class profile',url:'https://www.admissions.illinois.edu/class-profile/'},
-    {name:'Northeastern University',lo:1480,hi:1540,year:'current admissions profile',url:'https://admissions.northeastern.edu/application-information/'}
+    {name:'Northeastern University',lo:1480,hi:1540,year:'current admissions profile',url:'https://admissions.northeastern.edu/application-information/'},
+    {name:'Stephen F. Austin State University',lo:950,hi:1130,year:'Fall 2025 enrolled · CDS',url:'https://www.sfasu.edu/docs/institutional-research/common-data-set-complete-25-26.pdf'},
+    {name:'Commonwealth University of Pennsylvania',lo:980,hi:1190,year:'Fall 2025 enrolled · CDS',url:'https://www.commonwealthu.edu/offices-directory/institutional-effectiveness/institutional-research/common-data-set-2025-2026'},
+    {name:'Kennesaw State University',lo:1010,hi:1210,year:'Fall 2025 enrolled · CDS',url:'https://campus.kennesaw.edu/offices-services/data-strategy/institutional-research/publications/common-data-set/cds-2025-2026.php'},
+    {name:'University of Nevada, Reno',lo:1060,hi:1280,year:'Fall 2025 enrolled · CDS',url:'https://dataden.unr.edu/CommonDataSet'},
+    {name:'Michigan State University',lo:1100,hi:1320,year:'Fall 2026 enrolled',url:'https://admissions.msu.edu/counselors'},
+    {name:'Butler University',lo:1163,hi:1330,year:'Fall 2025 enrolled · CDS',url:'https://cdn.butler.edu/www/sites/3/2026/03/26111834/CDS_2025-2025_C.pdf'},
+    {name:'Texas A&M University',lo:1160,hi:1390,year:'Fall 2025 enrolled · CDS',url:'https://abpa.tamu.edu/accountability-rankings/common-data-set.html'},
+    {name:'Auburn University',lo:1280,hi:1370,year:'Fall 2025 enrolled · CDS',url:'https://ir.auburn.edu/common-data-set/2025/section-c.php'},
+    {name:'Rutgers–Camden · Arts and Sciences',lo:1250,hi:1470,year:'Fall 2026 admitted',url:'https://admissions.rutgers.edu/apply/how-we-make-decisions'},
+    {name:'Rutgers–Newark · Arts and Sciences',lo:1320,hi:1500,year:'Fall 2026 admitted',url:'https://admissions.rutgers.edu/apply/how-we-make-decisions'},
+    {name:'Rutgers–New Brunswick · Arts and Sciences',lo:1380,hi:1520,year:'Fall 2026 admitted',url:'https://admissions.rutgers.edu/apply/how-we-make-decisions'},
+    {name:'Georgia Institute of Technology',lo:1370,hi:1530,year:'Fall 2025 enrolled · CDS',url:'https://irp.gatech.edu/files/CDS/CDS_2025-2026_FINAL_23JAN2026.pdf'},
+    {name:'Villanova University',lo:1420,hi:1490,year:'Fall 2025 enrolled · CDS',url:'https://www.villanova.edu/content/dam/villanova/provost/decision_support/CDS-2025-2026-v3.pdf'},
+    {name:'Emory University',lo:1480,hi:1540,year:'Fall 2025 enrolled · CDS',url:'https://provost.emory.edu/planning-administration/_includes/documents/sections/institutional-data/emory-common-date-set-2025-2026.pdf'},
+    {name:'Princeton University',lo:1490,hi:1560,year:'Fall 2025 enrolled · CDS',url:'https://ir.princeton.edu/sites/g/files/toruqf2041/files/documents/CDS_2526_Princeton_v2.pdf'},
+    {name:'Massachusetts Institute of Technology',lo:1520,hi:1570,year:'Fall 2025 enrolled · CDS',url:'https://ir.mit.edu/projects/2025-26-common-data-set/'}
   ];
+  universities.sort((a,b)=>a.lo-b.lo);
+  UI.ru.universityNote='Для ориентира использованы опубликованные данные приёма 2025–2026 годов. Указан год каждой статистики. Баллы, правила и сроки 2027 года проверяй на сайте вуза. Диапазон SAT не означает шанс поступления.';
+  UI.en.universityNote='Published 2025–2026 admissions data are shown, with the year for each source. Check 2027 scores, rules and deadlines with each university. SAT ranges are not admission chances.';
+  UI.es.universityNote='Se muestran datos publicados de 2025–2026 con el año de cada fuente. Consulta las reglas y fechas de 2027 en cada universidad. Un rango SAT no predice la admisión.';
+  UI.ar.universityNote='نعرض بيانات القبول المنشورة لعامي 2025–2026 مع سنة كل مصدر. تحقق من شروط 2027 ومواعيده لدى كل جامعة. نطاق SAT لا يتنبأ بالقبول.';
   let wordingSession=null;
   function newWording(){wordingSession={items:copy(DRILLS.map((_,i)=>i)).slice(0,12).map(i=>({i,options:copy([DRILLS[i].good,...DRILLS[i].bad]),selected:null})),index:0};english()}
   english=function(){
@@ -73,5 +94,15 @@
     for(const id of ['bluebookMath','bluebookRW','targetTotal'])$('#'+id).onchange=e=>{const n=Number(e.target.value);if(id==='targetTotal'){if(n>=400&&n<=1600&&n%10===0)state.targetTotal=n}else if(e.target.value===''||scoreValue(e.target.value)!==null)state[id]=e.target.value;save();settings()};
     $('#reset').onclick=()=>{if(confirm(t('resetConfirm'))){state.done={};state.correct=0;state.attempts=0;state.topicStats={};state.checkpoints=[];state.wordingHistory=[];state.bluebookMath='';state.bluebookRW='';save();settings()}};
   };
+  const baseSettings=settings;
+  settings=function(){
+    baseSettings();
+    const wrap=document.querySelector('.university-wrap');
+    if(!wrap)return;
+    const label={ru:'Поиск по вузам',en:'Search universities',es:'Buscar universidades',ar:'ابحث عن الجامعات'}[state.lang];
+    wrap.insertAdjacentHTML('beforebegin',`<div class="university-search"><label for="uniSearch">${label} · ${universities.length}</label><input id="uniSearch" type="search" placeholder="${label}"></div>`);
+    document.querySelector('#uniSearch').oninput=e=>{const needle=e.target.value.toLocaleLowerCase();wrap.querySelectorAll('tbody tr').forEach(tr=>{tr.hidden=!tr.textContent.toLocaleLowerCase().includes(needle)})};
+  };
   render();
 })();
+
