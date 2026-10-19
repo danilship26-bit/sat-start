@@ -22,6 +22,7 @@
     document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
     $('#rw-app').innerHTML=`<div class="layout"><aside class="side"><a class="logo" href="./index.html"><i>✦</i>SAT Start</a><nav class="nav"><a href="./index.html">⌂ &nbsp;${t('home')}</a><a href="./index.html">▤ &nbsp;${t('math')}</a><button data-view="home" class="${view==='home'?'active':''}">Aa &nbsp;${t('course')}</button><button data-view="practice" class="${view==='practice'?'active':''}">◈ &nbsp;${t('practice')}</button><button data-view="results" class="${view==='results'?'active':''}">↗ &nbsp;${t('results')}</button></nav><div class="side-note">SAT Start · Reading & Writing<br>${t('examToolsText')}</div></aside><main class="main"><div class="top"><span class="eyebrow">SAT START · READING & WRITING</span><label><span class="eyebrow">${t('settings')} &nbsp;</span><select id="lang"><option value="ru">Русский</option><option value="en">English</option><option value="es">Español</option><option value="ar">العربية</option></select></label></div>${body}<div class="footer">Independent practice. SAT is a trademark of College Board; this app is not affiliated with College Board. <a href="https://satsuite.collegeboard.org/sat/whats-on-the-test/reading-writing" target="_blank" rel="noopener">College Board ↗</a> · <a href="https://satsuite.collegeboard.org/practice/practice-tests/bluebook" target="_blank" rel="noopener">Bluebook ↗</a></div></main></div>`;
     document.querySelector('.layout .side .nav a[href="./index.html"]')?.remove();
+    document.querySelector('.layout .side .nav')?.insertAdjacentHTML('beforeend',`<a href="./hub.html">◈ &nbsp;${{ru:'План и экзамен',en:'Plan and exam',es:'Plan y examen',ar:'الخطة والاختبار'}[lang]}</a>`);
     document.querySelector('.layout .top')?.insertAdjacentHTML('afterend','<div class="course-switch" aria-label="SAT courses"><a href="./index.html"><span class="switch-mark">∑</span> SAT Math</a><a class="active" href="./rw.html" aria-current="page"><span class="switch-mark">Aa</span> Reading & Writing</a></div>');
     $('#lang').value=lang;$('#lang').onchange=e=>updateLang(e.target.value);
     document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;show()});
@@ -39,6 +40,7 @@
     <div class="section-head"><h2>${t('examTools')}</h2></div><div class="card"><p>${t('examToolsText')}</p><button class="btn" id="practice-btn">${t('exam')} →</button></div>
     <div class="notice">${t('sourceText')}</div>`);
     $('#hero-start').onclick=()=>startLesson(next[0]);$('#results-btn').onclick=()=>go('results');$('#practice-btn').onclick=()=>go('practice');document.querySelectorAll('[data-skill]').forEach(b=>b.onclick=()=>startLesson(b.dataset.skill));
+    document.querySelector('.layout .hero')?.insertAdjacentHTML('afterend',`<a class="hub-promo" href="./hub.html"><span>◈</span><span><strong>${{ru:'Твой персональный маршрут SAT',en:'Your personal SAT path',es:'Tu camino personal al SAT',ar:'خطتك الشخصية لاختبار SAT'}[lang]}</strong><small>${{ru:'Диагностика и полный экзамен по обоим разделам.',en:'Diagnostic and a full exam covering both sections.',es:'Diagnóstico y examen completo de ambas secciones.',ar:'تشخيص واختبار كامل للقسمين.'}[lang]}</small></span><b>↗</b></a>`);
   }
   function startLesson(id){lesson={id,items:shuffle(RW_ITEMS.filter(q=>q.skill===id)).map(q=>({id:q.id,order:shuffle([0,1,2,3]),pick:null})),index:0,correct:0};go('lesson')}
   function lessonPage(){
@@ -86,5 +88,7 @@
   }
   function show(){clearInterval(timer);if(view==='home')home();else if(view==='lesson')lessonPage();else if(view==='practice')practice();else if(view==='test'){if(!session){go('practice');return}testPage();timer=setInterval(tick,1000)}else results()}
   show();
+  const deepSkill=new URLSearchParams(location.search).get('skill');
+  if(deepSkill&&RW_SKILLS.some(s=>s[0]===deepSkill))startLesson(deepSkill);
 })();
 
