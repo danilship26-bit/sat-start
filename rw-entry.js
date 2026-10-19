@@ -12,6 +12,9 @@
     const x=labels[state.lang]||labels.en;
     const navEl=document.querySelector('.sidebar .nav');
     if(navEl)navEl.insertAdjacentHTML('beforeend',`<a class="rw-nav-link" href="./rw.html"><span class="nav-icon">✎</span>${x.nav}</a>`);
+    const main=document.querySelector('.shell .main');
+    const top=main?.querySelector('.topbar');
+    if(top)top.insertAdjacentHTML('afterend',`<div class="course-switch" aria-label="SAT courses"><a class="active" href="./index.html" aria-current="page"><span class="switch-mark">∑</span> SAT Math</a><a href="./rw.html"><span class="switch-mark">Aa</span> Reading & Writing</a></div>`);
   };
   const oldHome=home;
   home=function(){
