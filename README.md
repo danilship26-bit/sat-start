@@ -1,6 +1,6 @@
 # SAT Start
 
-**[Открыть приложение / Open the app](https://sat-start-2026.arcane-field-4854.chatgpt.site/)** · [GitHub Pages mirror](https://danilship26-bit.github.io/sat-start/)
+**[Открыть приложение / Open the app](https://sat-start-math-2026.arcane-field-4854.chatgpt.site/)** · [GitHub Pages mirror](https://danilship26-bit.github.io/sat-start/)
 
 Independent, multilingual preparation for the digital SAT. Math and Reading & Writing are separate courses on the same site. Questions are in English; the interface and learning strategies are available in Russian, English, Spanish, and Arabic. Progress stays in the browser.
 
